@@ -45,8 +45,13 @@ ENV PATH=/home/vscode/miniforge3/bin:/home/vscode/julia/usr/bin:$PATH
 
 RUN conda install -c conda-forge jupyterlab
 
-COPY gitconfig /home/vscode/.gitconfig
-COPY git.sh /home/vscode/
+COPY .devcontainer/gitconfig /home/vscode/.gitconfig
+COPY .devcontainer/git.sh /home/vscode/
+
+WORKDIR /workspace
+
+COPY Project.toml ./
+RUN julia -e 'using Pkg; Pkg.activate("."); Pkg.precompile(); Pkg.instantiate();'
 
 EXPOSE 8888
 

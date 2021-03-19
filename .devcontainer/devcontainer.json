@@ -3,19 +3,17 @@
 {
   "name": "Julia",
   "build": {
-    "dockerfile": "Dockerfile"
+    "dockerfile": "Dockerfile",
+    "context": ".."
   },
 
   // Set *default* container specific settings.json values on container create.
   "settings": {
-    "terminal.integrated.shell.linux": "/bin/zsh",
-    "prettier.configPath": ".prettierrc.yaml",
-    "python.formatting.provider": "black",
-    "python.testing.pytestEnabled": true,
-    "python.testing.pytestArgs": ["tests"],
-    "python.testing.unittestEnabled": false,
-    "python.testing.nosetestsEnabled": false
+    "terminal.integrated.shell.linux": "/bin/zsh"
   },
+
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+  "workspaceFolder": "/workspace",
 
   // Add the IDs of extensions you want installed when the container is created.
   "extensions": [
