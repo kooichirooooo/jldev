@@ -17,7 +17,7 @@ RUN groupadd --gid $USER_GID $USERNAME \
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0 \
     && apt-add-repository https://cli.github.com/packages \
     && apt update \
-    && apt install gh \
+    && apt install -y gh \
     && apt-get autoremove -y \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
@@ -49,9 +49,6 @@ COPY .devcontainer/gitconfig /home/vscode/.gitconfig
 COPY .devcontainer/git.sh /home/vscode/
 
 WORKDIR /workspace
-
-COPY Project.toml ./
-RUN julia -e 'using Pkg; Pkg.activate("."); Pkg.precompile(); Pkg.instantiate();'
 
 EXPOSE 8888
 
